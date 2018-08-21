@@ -133,6 +133,7 @@ public void OnClientDisconnect(int client)
 		CS_TerminateRound(1.5, CSRoundEnd_CTWin);
 	}
 }
+
 public void EventSDK_OnClientThink(int client)
 {
 	if(IsValidClient(client, true))
@@ -229,6 +230,7 @@ public Action Event_OnRoundStart(Handle event, const char[] name, bool dontbroad
 		}
 	}
 }
+
 public Action Event_OnRoundEnd(Handle event, const char[] name, bool dontbroadcast)
 {
 	int winner_team = GetEventInt(event, "winner");
