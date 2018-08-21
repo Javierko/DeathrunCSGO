@@ -1,0 +1,7 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/player/mapeadores/morell/joker/slow_joker"
+	"$bumpmap" "models/player/mapeadores/morell/joker/slow_joker_bump"
+
+
+}
