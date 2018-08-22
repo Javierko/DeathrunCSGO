@@ -105,8 +105,7 @@ public Action EventCMD_Help(int client, int args)
 
 public Action EventCMD_Pravidla(int client, int args)
 {
-	PrintToConsole(client, "%s", SongList);
-	//ShowPravidlaMenu(client);
+	ShowPravidlaMenu(client);
 }
 
 public Action EventCMD_Freerun(int client, int args)

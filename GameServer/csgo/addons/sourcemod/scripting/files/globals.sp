@@ -5,8 +5,6 @@
 #define ENT_RADAR 1 << 12
 #define LoopClients(%1) for(int %1 = 1; %1 <= MaxClients; %1++)
 
-char SongList[1024];
-
 int i_DrTerrorist = -1;
 
 float fr_enabletime = 6.0;
