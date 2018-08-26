@@ -21,7 +21,7 @@ public Plugin myinfo =
     name = "[CS:GO] Deathrun",
     author = "ESK0, Javierko",
     description = "CS:GO Deathrun plugin",
-    version = "1.3",
+    version = "1.0.0",
 };
 
 public void OnPluginStart()
