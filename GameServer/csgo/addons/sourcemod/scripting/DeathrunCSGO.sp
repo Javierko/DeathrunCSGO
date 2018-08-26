@@ -34,17 +34,23 @@ public void OnPluginStart()
 	HookEvent("player_death", Event_OnPlayerDeath);
 	HookEvent("player_team", Event_OnPlayerTeam, EventHookMode_Pre);	
 	
+	//Cvars
+	g_cvBetterBhop = CreateConVar("sm_drcsgo_btbhop", "0", "1 - Better Bhop cvars will be activated, 0 - disabled", _, true, 0.0, true, 1.0);
+	
 	HookEntityOutput("func_button", "OnPressed", OnButtonPressed);
 	
 	AddNormalSoundHook(OnNormalSoundPlayed);
 	AddCommandListener(Event_OnPlayerTeamJoin, "jointeam");
 	
 	//For better bhoping
-	SetCvar("sv_enablebunnyhopping", "1");
-	SetCvar("sv_staminamax", "200");
-	SetCvar("sv_airaccelerate", "400");
-	SetCvar("sv_staminajumpcost", ".1");
-	SetCvar("sv_staminalandcost", "0");
+	if(g_cvBetterBhop.BoolValue)
+	{
+		SetCvar("sv_enablebunnyhopping", "1");
+		SetCvar("sv_staminamax", "200");
+		SetCvar("sv_airaccelerate", "400");
+		SetCvar("sv_staminajumpcost", ".1");
+		SetCvar("sv_staminalandcost", "0");
+	}
 	
 	RegConsoleCmd("sm_freerun", EventCMD_Freerun);
 	//RegAdminCmd("sm_frtest", Event_test, ADMFLAG_ROOT);	
@@ -53,6 +59,8 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_rules", EventCMD_Pravidla);
 	RegConsoleCmd("sm_joker", EventCMD_Joker);
 	RegConsoleCmd("sm_batman", EventCMD_Batman);
+	
+	AutoExecConfig(true, "deathruncsgo");
 }
 
 public void OnMapStart()

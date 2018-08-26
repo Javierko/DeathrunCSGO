@@ -25,3 +25,5 @@ int i_JumpsCount[MAXPLAYERS+1];
 int i_ClientLifes[MAXPLAYERS+1] = {1,...};
 bool b_ClientRespawn[MAXPLAYERS+1] = {false,...};
 float f_ClientRespawnTime[MAXPLAYERS+1];
+
+ConVar g_cvBetterBhop;
