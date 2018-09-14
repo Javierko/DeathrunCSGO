@@ -9,9 +9,7 @@
 * sm_batman - Open menu for Batmans
 
 ## ConVars  
-```
-If you have idea on Cvars, tell me i should add it.
-```
+* sm_drcsgo_btbhop 0/1 - disabled/enabled inplugin cvars for better bhop
 
 ## Includes for compile
 [Multi Colors](https://forums.alliedmods.net/showthread.php?t=247770)
