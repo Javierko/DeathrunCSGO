@@ -186,6 +186,7 @@ public Action Event_OnPlayerSpawn(Handle event, const char[] strName, bool dontB
 			{
 				SetEntityRenderMode(client, RENDER_TRANSCOLOR);
 				SetEntityModel(client, JokerModel);
+				SetEntPropString(client, Prop_Send, "m_szArmsModel", "models/weapons/t_arms_anarchist.mdl");
 				CreateTimer(1.0, Timer_ShowMenu, client);
 				joker_bhop = true;
 			}
