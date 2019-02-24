@@ -3,15 +3,34 @@
 ## Commands  
 * sm_freerun - Starts freerun round
 * sm_fr - Starts freerun round
-* sm_help - Open Help menu for newbies
-* sm_rules - Show menu with rules
 * sm_joker - Open menu for Jokers
 * sm_batman - Open menu for Batmans
 
 ## ConVars  
-* sm_drcsgo_btbhop 0/1 - disabled/enabled inplugin cvars for better bhop
+* sm_deahtrun_tag "{darkred}[SM]{default}" - sets tag
 
-## Includes for compile
-[Multi Colors](https://forums.alliedmods.net/showthread.php?t=247770)
+## Supported colors
+* {default}
+* {darkred}
+* {green}
+* {lightgreen}
+* {red}
+* {blue}
+* {olive}
+* {lime}
+* {lightred}
+* {purple}
+* {grey}
+* {orange}
 
-[EmitSoundAny](https://forums.alliedmods.net/showthread.php?t=237045)
+## Recommended settings
+* sv_enablebunnyhopping 1
+* sv_staminamax 200
+* sv_airaccelerate 400
+* sv_staminalandcost 0
+
+## Requirements
+[Chat-Processor](https://forums.alliedmods.net/showthread.php?t=286913)
+
+## Alliedmodders topic
+[Deathrun on AlliedModders](https://forums.alliedmods.net/showthread.php?t=310254)
