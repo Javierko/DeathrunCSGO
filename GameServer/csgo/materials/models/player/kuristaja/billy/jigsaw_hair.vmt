@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\player\kuristaja\billy\jigsaw_hair"
+	"$bumpmap"     "models\player\kuristaja\billy\jigsaw_hair_normal"
+	"$translucent" 1
+	"$nocull" 1
+}

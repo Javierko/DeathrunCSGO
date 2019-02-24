@@ -1,0 +1,83 @@
+﻿"Phrases"
+{
+    "FreerunTurnedOn"
+    {
+        "en"        "This round is freerun!"
+        "cze"       "Toto kolo je freerun!"
+    }
+
+    "FreerunIsOn"
+    {
+        "en"        "Can not start freerun, because one is running now!"
+        "cze"       "Jeden freerun je již zapnutý!"
+    }
+
+    "YoureNotJoker"
+    {
+        "en"        "You need to be Joker for this command!"
+        "cze"       "Pro tento příkaz musíš mít Joker!"
+    }
+
+    "YoureNotBatman"
+    {
+        "en"        "You need to be Batman for this command!"
+        "cze"       "Pro tento příkaz musíš být Batman!"
+    }
+    
+    "BhopTurnedOn"
+    {
+        "en"        "You turned on Bhop!"
+        "cze"       "Zapnul sis Bhop"
+    }
+
+    "SpeedTurnedOn"
+    {
+        "en"        "You turned on Speed!"
+        "cze"       "Zapnul sis Speed!"
+    }
+
+    "DoublejumpTurnedOn"
+    {
+        "en"        "You turned on Doublejump!"
+        "cze"       "Zapnul sis Doublejump!"
+    }
+
+    "HidePlayersToggle"
+    {
+        "en"        "You toggled hided players!"
+        "cze"       "Přepnul sis vidění hráčů!"
+    }
+
+    "NewJoker"
+    {
+        "#format"   "{1:N}"
+        "en"        "{1} is our new Joker!"
+        "cze"       "{1} je náš nový Joker!"
+    }
+
+    "BatmansWin"
+    {
+        "en"        "Batmans win the round!"
+        "cze"       "Batmani vyhráli kolo!"
+    }
+
+    "JokersWin"
+    {
+        "en"        "Jokers win the round!"
+        "cze"       "Jokeři vyhráli kolo"
+    }
+
+    "DeathHud"
+    {
+        "#format"   "{1:.1f}"
+        "en"        "<font color='#f29f00'>You will be respawned in: </font><font color='#00ff00'>{1}</font>"
+        "cze"       "<font color='#f29f00'>Budeš respawnut za: </font><font color='#00ff00'>{1}</font>"
+    }
+
+    "YourLifes"
+    {
+        "#format"   "{1:N}"
+        "en"        "Currently you have {1} lifes."
+        "cze"       "Momentálně máš ještě {1} životů."
+    }
+}

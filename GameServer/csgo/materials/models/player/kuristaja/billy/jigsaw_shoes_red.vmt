@@ -1,0 +1,13 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\player\kuristaja\billy\jigsaw_shoes_red"
+	"$bumpmap"     	"models\player\kuristaja\billy\jigsaw_shoes_normal"
+
+	"$phong"			"1"
+
+	"$phongboost"		".1"
+	"$phongexponent"		"60"
+	"$phongfresnelranges"	"[.8 .8 .6]"
+
+	"$halflambert" "1"
+}

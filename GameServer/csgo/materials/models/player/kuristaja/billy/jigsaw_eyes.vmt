@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\player\kuristaja\billy\jigsaw_eyes"
+       	"$selfillum" "0"
+}
