@@ -8,6 +8,7 @@
 
 ## ConVars  
 * sm_deahtrun_tag "{darkred}[SM]{default}" - sets tag
+* sm_deathrun_models "1" - 1: Enable inplugin models 0: Disable inplugin models
 
 ## Supported colors
 * {default}
