@@ -8,7 +8,7 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-#define PL_VER "2.0.0"
+#define PL_VER "2.0.1"
 #define PL_AUTOR "Javierko"
 #define LoopClients(%1) for(int %1 = 1; %1 <= MaxClients; %1++)
 
@@ -56,6 +56,7 @@ public void OnPluginStart()
     g_cvTag = CreateConVar("sm_deahtrun_tag", "{darkred}[SM]{default}", "Set tag for messages.");
     g_cvTag.AddChangeHook(OnConVarChanged);
     g_cvTag.GetString(g_szTag, sizeof(g_szTag));
+    g_cvModels = CreateConVar("sm_deathrun_models", "1", "1 - Enable inplugin models, 0 - disable inplugin models", _, true, 0.0, true, 1.0);
 
     AutoExecConfig(true, "deathrun");
 
@@ -99,7 +100,8 @@ public void OnMapStart()
     Func_SetCvar("mp_teamname_1", "Batmans");
     Func_SetCvar("mp_teamname_2", "Joker");
 
-    Func_DownloadAndPrecacheFiles();
+    if(g_cvModels.BoolValue)
+        Func_DownloadAndPrecacheFiles();
 }
 
 /*
@@ -273,7 +275,7 @@ public void OnGameFrame()
 //Button
 public void HEO_OnButtonPressed(const char[] output, int caller, int activator, float delay)
 {
-    if(IsValidClient(caller) || IsValidClient(activator))
+    if(IsValidEntity(caller) && IsValidClient(activator))
     {
         if(IsClientJoker(caller) || IsClientJoker(activator))
         {

@@ -9,15 +9,21 @@ public Action Event_PlayerSpawn(Handle event, const char[] strName, bool dontBro
         {
             Menu_Batman(client);
 
-            SetEntityModel(client, "models/player/custom_player/kuristaja/ak/batman/batmanv2.mdl");
-            SetEntPropString(client, Prop_Send, "m_szArmsModel", "models/player/custom_player/kuristaja/ak/batman/batman_arms.mdl");
+            if(g_cvModels.BoolValue)
+            {
+                SetEntityModel(client, "models/player/custom_player/kuristaja/ak/batman/batmanv2.mdl");
+                SetEntPropString(client, Prop_Send, "m_szArmsModel", "models/player/custom_player/kuristaja/ak/batman/batman_arms.mdl");
+            }
 
             GivePlayerItem(client, "weapon_flashbang");
         }
         else if(IsClientJoker(client))
         {
-            SetEntityModel(client, "models/player/custom_player/kuristaja/billy/billy.mdl");
-            SetEntPropString(client, Prop_Send, "m_szArmsModel", "models/player/custom_player/kuristaja/billy/billy_arms.mdl");
+            if(g_cvModels.BoolValue)
+            {
+                SetEntityModel(client, "models/player/custom_player/kuristaja/billy/billy.mdl");
+                SetEntPropString(client, Prop_Send, "m_szArmsModel", "models/player/custom_player/kuristaja/billy/billy_arms.mdl");
+            }
 
             g_bJokerAbility[Bhop] = true;
             g_bJokerAbility[Speed] = false;

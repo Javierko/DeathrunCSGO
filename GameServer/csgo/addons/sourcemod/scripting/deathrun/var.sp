@@ -34,6 +34,7 @@ float g_fRespawnTime[MAXPLAYERS + 1];
 
 //Convars
 ConVar g_cvTag;
+ConVar g_cvModels;
 
 //Custom defines
 #define ENT_RADAR 1 << 12
