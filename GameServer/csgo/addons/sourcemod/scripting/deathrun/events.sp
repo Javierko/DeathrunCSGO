@@ -21,7 +21,7 @@ public Action Event_PlayerSpawn(Handle event, const char[] strName, bool dontBro
         {
             if(g_cvModels.BoolValue)
             {
-                SetEntityModel(client, "models/player/custom_player/kuristaja/billy/billy.mdl");
+                SetEntityModel(client, "models/player/custom_player/kuristaja/billy/billy_normal.mdl");
                 SetEntPropString(client, Prop_Send, "m_szArmsModel", "models/player/custom_player/kuristaja/billy/billy_arms.mdl");
             }
 
@@ -64,12 +64,15 @@ public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast
 {
     g_bJokerAbility[Speed] = false;
     g_bJokerAbility[Speed] = true;
+    g_bFreerun = false;
     
-    if(g_bFreerun)
+    if(!g_bFreerun)
     {
-        if(GetRandomInt(1,3) == GetRandomInt(1,3))
+        if(GetRandomInt(1,5) == GetRandomInt(1,5))
         {
-            g_bFreerun = false;
+            g_bFreerun = true;
+
+            CPrintToChatAll("%s %t", g_szTag, "FreerunTurnedOn");
         }
     }
     

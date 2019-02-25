@@ -80,4 +80,10 @@
         "en"        "Currently you have {1} lifes."
         "cze"       "Momentálně máš ještě {1} životů."
     }
+
+    "ItsFreerun"
+    {
+        "en"    "Its freerun!"
+        "cze"   "Je freerun!"
+    }
 }

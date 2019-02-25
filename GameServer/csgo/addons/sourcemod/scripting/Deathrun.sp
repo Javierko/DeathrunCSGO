@@ -8,7 +8,7 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-#define PL_VER "2.0.1"
+#define PL_VER "2.0.2"
 #define PL_AUTOR "Javierko"
 #define LoopClients(%1) for(int %1 = 1; %1 <= MaxClients; %1++)
 
@@ -28,7 +28,7 @@ public Plugin myinfo =
     author      = PL_AUTOR,
     description = "Public Deahtrun gamemode",
     version     = PL_VER,
-    url         = "https://github.com/Javierko"
+    url         = "https://github.com/Javierko" 
 }; 
 
 /*
@@ -140,14 +140,14 @@ public Action Command_Freerun(int client, int args)
             {
                 g_bFreerun = true;
 
-                int iIndex = -1;
+                /*int iIndex = -1;
                 char szButton[32];
 
                 while((iIndex = FindEntityByClassname(iIndex, "func_button")) != -1)
                 {
                     GetEntPropString(iIndex, Prop_Data, "m_iName", szButton, sizeof(szButton));
                     AcceptEntityInput(iIndex, "Kill");
-                }
+                }*/
 
                 CReplyToCommand(client, "%s %t", g_szTag, "FreerunTurnedOn");
             }
@@ -273,16 +273,19 @@ public void OnGameFrame()
 */
 
 //Button
-public void HEO_OnButtonPressed(const char[] output, int caller, int activator, float delay)
+public Action HEO_OnButtonPressed(const char[] output, int caller, int activator, float delay)
 {
     if(IsValidEntity(caller) && IsValidClient(activator))
     {
-        if(IsClientJoker(caller) || IsClientJoker(activator))
+        if(g_bFreerun)
         {
-            if(!g_bFreerun)
-                g_bFreerun = true;
+            CPrintToChat(activator, "%s %t", g_szTag, "ItsFreerun");
+
+            return Plugin_Handled;
         }
     }
+
+    return Plugin_Continue;
 }
 
 //Think
