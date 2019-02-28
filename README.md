@@ -9,6 +9,9 @@
 ## ConVars  
 * sm_deahtrun_tag "{darkred}[SM]{default}" - sets tag
 * sm_deathrun_models "1" - 1: Enable inplugin models 0: Disable inplugin models
+* sm_deathrun_respawn "1" - 1 - Enable respawns, 0 - disable respawns
+* sm_deathrun_lifes_novip "1" - Non-VIP lifes >= 1
+* sm_deathrun_lifes_vip "3" - VIP lifes >= 1
 
 ## Supported colors
 * {default}
