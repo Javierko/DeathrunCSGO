@@ -4,20 +4,23 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
     {
         if(IsClientBatman(client))
         {
-            if(g_bClientRespawn[client])
+            if(g_cvRespawn.BoolValue)
             {
-                float fTimeleft = ((g_fRespawnTime[client] - GetGameTime()) + 5.0);
-                
-                if(fTimeleft > 0.01)
+                if(g_bClientRespawn[client])
                 {
-                    PrintHintText(client, "%t", "DeathHud", fTimeleft);
-                }
-                else if(fTimeleft < 0.01)
-                {
-                    CS_RespawnPlayer(client);
-                    g_iClientLifes[client]--;
-                    g_bClientRespawn[client] = false;
-                    PrintToChat(client, "%s %t", g_szTag, "YourLifes", g_iClientLifes[client]);
+                    float fTimeleft = ((g_fRespawnTime[client] - GetGameTime()) + 5.0);
+                    
+                    if(fTimeleft > 0.01)
+                    {
+                        PrintHintText(client, "%t", "DeathHud", fTimeleft);
+                    }
+                    else if(fTimeleft < 0.01)
+                    {
+                        CS_RespawnPlayer(client);
+                        g_iClientLifes[client]--;
+                        g_bClientRespawn[client] = false;
+                        PrintToChat(client, "%s %t", g_szTag, "YourLifes", g_iClientLifes[client]);
+                    }
                 }
             }
         }
@@ -30,7 +33,7 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
             if(g_bBatmanAbility[client][Bhop])
             {
                 int iIndex = GetEntProp(client, Prop_Data, "m_nWaterLevel");
-                int iWater = EntIndexToEntRef(iIndex);		
+                int iWater = EntIndexToEntRef(iIndex);
                 
                 if(iWater != INVALID_ENT_REFERENCE)
                 {

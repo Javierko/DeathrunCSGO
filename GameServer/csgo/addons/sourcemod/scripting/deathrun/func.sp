@@ -38,20 +38,20 @@ stock void Func_StripPlayerWeapons(int client)
     }
 }
 
-stock int Func_GetRandomPlayer() 
-{ 
-    int clients[MAXPLAYERS  + 1]; 
-    int clientCount; 
+stock int Func_GetRandomPlayer()
+{
+    int clients[MAXPLAYERS  + 1];
+    int clientCount;
      
-    for (int i = 1; i <= MAXPLAYERS ; i++) 
-    { 
+    for (int i = 1; i <= MAXPLAYERS ; i++)
+    {
         if(IsValidClient(i) && GetClientTeam(i) == CS_TEAM_CT)
         {
-            clients[clientCount++] = i; 
+            clients[clientCount++] = i;
         }
-    } 
+    }
 
-    return (clientCount == 0) ? -1 : clients[GetRandomInt(0, clientCount - 1)]; 
+    return (clientCount == 0) ? -1 : clients[GetRandomInt(0, clientCount - 1)];
 }
 
 stock void Func_SetCvar(char[] scvar, char[] svalue)
@@ -106,7 +106,7 @@ stock int GetClientWaterLevel(int client)
     > Player stocks <
 */
 
-stock bool IsValidClient(int client) 
+stock bool IsValidClient(int client)
 {
     if (client <= 0 || client > MaxClients || !IsClientInGame(client) || IsFakeClient(client) || IsClientSourceTV(client) || IsClientReplay(client))
     {
@@ -142,4 +142,4 @@ stock bool IsClientBatman(int client)
 stock bool IsPlayerVIP(int client)
 {
     return CheckCommandAccess(client, "", ADMFLAG_RESERVATION);
-} 
+}

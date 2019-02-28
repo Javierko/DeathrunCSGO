@@ -8,7 +8,7 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-#define PL_VER "2.0.2"
+#define PL_VER "2.0.3"
 #define PL_AUTOR "Javierko"
 #define LoopClients(%1) for(int %1 = 1; %1 <= MaxClients; %1++)
 
@@ -16,7 +16,7 @@
 #include "deathrun/func.sp"
 #include "deathrun/menu.sp"
 #include "deathrun/events.sp"
-#include "deathrun/runcmd.sp" 
+#include "deathrun/runcmd.sp"
 
 /*
     > Plugin info <
@@ -28,8 +28,8 @@ public Plugin myinfo =
     author      = PL_AUTOR,
     description = "Public Deahtrun gamemode",
     version     = PL_VER,
-    url         = "https://github.com/Javierko" 
-}; 
+    url         = "https://github.com/Javierko"
+};
 
 /*
     > Plugin Start <
@@ -57,6 +57,9 @@ public void OnPluginStart()
     g_cvTag.AddChangeHook(OnConVarChanged);
     g_cvTag.GetString(g_szTag, sizeof(g_szTag));
     g_cvModels = CreateConVar("sm_deathrun_models", "1", "1 - Enable inplugin models, 0 - disable inplugin models", _, true, 0.0, true, 1.0);
+    g_cvRespawn = CreateConVar("sm_deathrun_respawn", "1", "1 - Enable respawns, 0 - disable respawns", _, true, 0.0, true, 1.0);
+    g_cvLifesNonVIP = CreateConVar("sm_deathrun_lifes_novip", "1", "Non-VIP lifes >= 1", _, true, 1.0, false);
+    g_cvLifesVIP = CreateConVar("sm_deathrun_lifes_vip", "3", "VIP lifes >= 1", _, true, 1.0, false);
 
     AutoExecConfig(true, "deathrun");
 
@@ -181,7 +184,7 @@ public Action Command_Batman(int client, int args)
             CReplyToCommand(client, "%s %t", g_szTag, "YoureNotBatman");
 
     return Plugin_Handled;
-} 
+}
 
 /*
     > Timers <
@@ -193,7 +196,7 @@ public Action Timer_RemoveRadar(Handle timer, any client)
         SetEntProp(client, Prop_Send, "m_iHideHUD", ENT_RADAR);
 
     return Plugin_Stop;
-}   
+}
 
 /*
     > Jointeam listener <
@@ -201,8 +204,8 @@ public Action Timer_RemoveRadar(Handle timer, any client)
 
 public Action Event_OnPlayerTeamJoin(int client, const char[] command, int args)
 {
-    char szTeamString[3]; 
-    GetCmdArg(1, szTeamString, sizeof(szTeamString)); 
+    char szTeamString[3];
+    GetCmdArg(1, szTeamString, sizeof(szTeamString));
 
     int iTargetTeam = StringToInt(szTeamString);
     int iCurrTeam = GetClientTeam(client);
@@ -225,28 +228,28 @@ public Action Event_PlayerTeam_Pre(Handle event, const char[] name, bool dontBro
 {
     int client = GetClientOfUserId(GetEventInt(event, "userid"));
     int iTeam = GetEventInt(event, "team");
-
+    
     if(!dontBroadcast)
     {
-        Handle hNewEvent = CreateEvent("player_team", true);	
-
+        Handle hNewEvent = CreateEvent("player_team", true);
+        
         SetEventInt(hNewEvent, "userid", GetEventInt(event, "userid"));
         SetEventInt(hNewEvent, "team", GetEventInt(event, "team"));
         SetEventInt(hNewEvent, "oldteam", GetEventInt(event, "oldteam"));
-        SetEventBool(hNewEvent, "disconnect", GetEventBool(event, "disconnect"));	
-
-        FireEvent(hNewEvent, true);		
-
+        SetEventBool(hNewEvent, "disconnect", GetEventBool(event, "disconnect"));
+        
+        FireEvent(hNewEvent, true);
+        
         return Plugin_Handled;
-	} 
-
+    }
+    
     if(IsValidClient(client))
     {
-        if(iTeam == CS_TEAM_T) 
+        if(iTeam == CS_TEAM_T)
         {
             CS_SwitchTeam(client, CS_TEAM_CT);
         }
-    }	  
+    }
     
     return Plugin_Continue;
 }
@@ -309,7 +312,7 @@ public Action SDK_SetTransmit(int entity, int client)
     if(client != entity)
         if(GetClientTeam(client) == CS_TEAM_CT && GetClientTeam(entity) == CS_TEAM_CT)
             if(IsValidClient(entity))
-                if(g_bHideMates[client])  
+                if(g_bHideMates[client])
                     return Plugin_Handled;
                     
     return Plugin_Continue;

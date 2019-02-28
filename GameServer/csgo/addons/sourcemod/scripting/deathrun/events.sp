@@ -45,15 +45,29 @@ public Action Event_PlayerDeath(Handle event, const char[] strName, bool dontBro
     {
         if(IsClientBatman(client))
         {
-            if(g_iClientLifes[client] != 0)
+            if(g_cvRespawn.BoolValue)
             {
-                if(Func_CountTeamPlayers(CS_TEAM_CT) > 1)
+                if(g_iClientLifes[client] != 0)
+                {
+                    if(Func_CountTeamPlayers(CS_TEAM_CT) > 1)
+                    {
+                        if(g_cvRespawn.BoolValue)
+                        {
+                            g_bClientRespawn[client] = true;
+                            g_fRespawnTime[client] = GetGameTime();
+                        }
+                    }
+                }
+                else
                 {
                     g_bBatmanAbility[client][Bhop] = false;
                     g_bBatmanAbility[client][Doublejump] = false;
-                    g_bClientRespawn[client] = true;
-                    g_fRespawnTime[client] = GetGameTime();
                 }
+            }
+            else
+            {
+                g_bBatmanAbility[client][Bhop] = false;
+                g_bBatmanAbility[client][Doublejump] = false;
             }
         }
     }
@@ -85,10 +99,23 @@ public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast
 
             Func_StripPlayerWeapons(i);
 
-            if(IsPlayerVIP(i))
-                g_iClientLifes[i] = 3;
-            else
-                g_iClientLifes[i] = 1;
+            if(g_cvRespawn.BoolValue)
+            {
+                char szBuffer[128];
+
+                if(IsPlayerVIP(i))
+                {
+                    g_cvLifesVIP.GetString(szBuffer, sizeof(szBuffer));
+
+                    g_iClientLifes[i] = StringToInt(szBuffer);
+                }
+                else
+                {
+                    g_cvLifesNonVIP.GetString(szBuffer, sizeof(szBuffer));
+
+                    g_iClientLifes[i] = StringToInt(szBuffer);
+                }
+            }
         }
     }
 }
