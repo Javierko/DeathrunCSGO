@@ -86,4 +86,10 @@
         "en"    "Its freerun!"
         "cze"   "Je freerun!"
     }
+
+    "SaveAbilityToggle"
+    {
+        "en"    "You toggled your save ability."
+        "cze"   "Přepnul sis ukládání abilit."
+    }
 }
