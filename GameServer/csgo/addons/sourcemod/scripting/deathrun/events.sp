@@ -57,14 +57,20 @@ public Action Event_PlayerDeath(Handle event, const char[] strName, bool dontBro
                 }
                 else
                 {
-                    g_bBatmanAbility[client][Bhop] = false;
-                    g_bBatmanAbility[client][Doublejump] = false;
+                    if(!g_bSaveAbility[client])
+                    {
+                        g_bBatmanAbility[client][Bhop] = false;
+                        g_bBatmanAbility[client][Doublejump] = false;
+                    }
                 }
             }
             else
             {
-                g_bBatmanAbility[client][Bhop] = false;
-                g_bBatmanAbility[client][Doublejump] = false;
+                if(!g_bSaveAbility[client])
+                {
+                    g_bBatmanAbility[client][Bhop] = false;
+                    g_bBatmanAbility[client][Doublejump] = false;
+                }
             }
         }
     }
@@ -73,7 +79,7 @@ public Action Event_PlayerDeath(Handle event, const char[] strName, bool dontBro
 //Round Start
 public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast)
 {
-    g_bJokerAbility[Speed] = false;
+    g_bJokerAbility[Bhop] = false;
     g_bJokerAbility[Speed] = true;
     g_bFreerun = false;
     
@@ -91,8 +97,11 @@ public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast
     {
         if(IsValidClient(i) && IsPlayerAlive(i))
         {
-            g_bBatmanAbility[i][Bhop] = false;
-            g_bBatmanAbility[i][Doublejump] = false;
+            if(!g_bSaveAbility[i])
+            {
+                g_bBatmanAbility[i][Bhop] = false;
+                g_bBatmanAbility[i][Doublejump] = false;
+            }
 
             Func_StripPlayerWeapons(i);
 

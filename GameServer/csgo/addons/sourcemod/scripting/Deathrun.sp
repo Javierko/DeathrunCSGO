@@ -8,7 +8,7 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-#define PL_VER "2.0.3"
+#define PL_VER "2.0.4"
 #define PL_AUTOR "Javierko"
 #define LoopClients(%1) for(int %1 = 1; %1 <= MaxClients; %1++)
 

@@ -88,6 +88,11 @@ void Menu_Batman(int client)
             else if(!g_bHideMates[client])
                 menu.AddItem("hide", "Hide Teammates [OFF]");
 
+            if(g_bSaveAbility[client])
+                menu.AddItem("save", "Save abilities [ON]");
+            else if(!g_bSaveAbility[client])
+                menu.AddItem("save", "Save abilities [OFF]");
+
             menu.Display(client, 90);
         }
         else
@@ -148,6 +153,12 @@ public int mBatman(Menu menu, MenuAction action, int client, int index)
                     g_bHideMates[client] = !g_bHideMates[client];
 
                     CPrintToChat(client, "%s %t", g_szTag, "HidePlayersToggle");
+                }
+                else if(StrEqual(szItem, "save"))
+                {
+                    g_bSaveAbility[client] = !g_bSaveAbility[client];
+
+                    CPrintToChat(client, "%s %t", g_szTag, "SaveAbilityToggle");
                 }
 
                 Menu_Batman(client);
