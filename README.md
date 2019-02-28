@@ -9,6 +9,9 @@
 ## ConVars  
 * sm_deahtrun_tag "{darkred}[SM]{default}" - sets tag
 * sm_deathrun_models "1" - 1: Enable inplugin models 0: Disable inplugin models
+* sm_deathrun_respawn "1" - 1 - Enable respawns, 0 - disable respawns
+* sm_deathrun_lifes_novip "1" - Non-VIP lifes >= 1
+* sm_deathrun_lifes_vip "3" - VIP lifes >= 1
 
 ## Supported colors
 * {default}
@@ -25,10 +28,17 @@
 * {orange}
 
 ## Recommended settings
-* sv_enablebunnyhopping 1
-* sv_staminamax 200
-* sv_airaccelerate 400
-* sv_staminalandcost 0
+* sv_accelerate 5.5 
+* sv_airaccelerate 100
+* sv_maxvelocity 4000  
+* sv_accelerate_use_weapon_speed 0
+* sv_staminalandcost 0 
+* sv_staminajumpcost 0 
+* sv_staminamax 0 
+* sv_staminajumpcost 0 
+* sv_gravity 800 
+* sv_friction 5.2
+* sv_enablebunnyhopping 1 
 
 ## Requirements
 [Chat-Processor](https://forums.alliedmods.net/showthread.php?t=286913)
