@@ -51,11 +51,8 @@ public Action Event_PlayerDeath(Handle event, const char[] strName, bool dontBro
                 {
                     if(Func_CountTeamPlayers(CS_TEAM_CT) > 1)
                     {
-                        if(g_cvRespawn.BoolValue)
-                        {
-                            g_bClientRespawn[client] = true;
-                            g_fRespawnTime[client] = GetGameTime();
-                        }
+                        g_bClientRespawn[client] = true;
+                        g_fRespawnTime[client] = GetGameTime();
                     }
                 }
                 else
