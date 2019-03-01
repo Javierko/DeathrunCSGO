@@ -25,10 +25,8 @@ public Action Event_PlayerSpawn(Handle event, const char[] strName, bool dontBro
                 SetEntPropString(client, Prop_Send, "m_szArmsModel", "models/player/custom_player/kuristaja/billy/billy_arms.mdl");
             }
 
-            g_bJokerAbility[Bhop] = true;
-            g_bJokerAbility[Speed] = false;
-
-            Menu_Joker(client);
+            g_bJokerAbility[Bhop] = false;
+            g_bJokerAbility[Speed] = true;
         }
 
         Func_StripPlayerWeapons(client);
@@ -124,6 +122,19 @@ public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast
             }
         }
     }
+
+    delete g_mJokerMenu;
+
+    LoopClients(i)
+    {
+        if(IsValidClient(i))
+        {
+            if(IsClientJoker(i))
+            {
+                g_mJokerMenu.Display(i, 90);
+            }
+        }
+    }
 }
 
 //Pre round start
@@ -156,7 +167,10 @@ public void Event_RoundEnd(Handle event, const char[] name, bool dontbroadcast)
         LoopClients(i)
         {
             if(IsValidClient(i))
+            {
+                g_iJoker = -1;
                 CS_SwitchTeam(i, CS_TEAM_CT);
+            }
         }
     }
 }

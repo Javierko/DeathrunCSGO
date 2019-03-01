@@ -42,3 +42,6 @@ ConVar g_cvLifesVIP;
 
 //Custom defines
 #define ENT_RADAR 1 << 12
+
+//Menus
+Menu g_mJokerMenu = null;

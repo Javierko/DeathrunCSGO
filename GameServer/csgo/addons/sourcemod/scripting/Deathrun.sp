@@ -8,7 +8,7 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-#define PL_VER "2.0.4"
+#define PL_VER "2.0.5"
 #define PL_AUTOR "Javierko"
 #define LoopClients(%1) for(int %1 = 1; %1 <= MaxClients; %1++)
 
@@ -66,9 +66,10 @@ public void OnPluginStart()
     //Translations
     LoadTranslations("deathrun.phrases");
 
-    //Sound Hooks
+    //Hooks
     AddNormalSoundHook(Sound_OnNormalSoundPlayed);
     HookEntityOutput("func_button", "OnPressed", HEO_OnButtonPressed);
+    AddCommandListener(Event_OnPlayerTeamJoin, "jointeam");
 
     //Download config
     BuildPath(Path_SM, g_szDownloadPath, sizeof(g_szDownloadPath), "configs/Deathrun_Download.txt");
@@ -105,6 +106,13 @@ public void OnMapStart()
 
     if(g_cvModels.BoolValue)
         Func_DownloadAndPrecacheFiles();
+
+    g_mJokerMenu = Menu_Joker();
+}
+
+public void OnMapEnd()
+{
+    delete g_mJokerMenu;
 }
 
 /*
@@ -168,7 +176,12 @@ public Action Command_Joker(int client, int args)
 {
     if(IsValidClient(client))
         if(IsClientJoker(client))
-            Menu_Joker(client);
+        {
+            if(g_mJokerMenu == null)
+                return Plugin_Handled;
+            
+            g_mJokerMenu.Display(client, 90);
+        }
         else
             CReplyToCommand(client, "%s %t", g_szTag, "YoureNotJoker");
 

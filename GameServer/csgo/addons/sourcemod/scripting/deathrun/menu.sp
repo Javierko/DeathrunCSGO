@@ -1,24 +1,17 @@
-void Menu_Joker(int client)
+Menu Menu_Joker()
 {
-    if(IsValidClient(client))
-    {
-        if(IsClientJoker(client))
-        {
-            Menu menu = new Menu(mJoker);
-            menu.SetTitle("Joker menu\n¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
+    Menu menu = new Menu(mJoker);
 
-            if(g_bJokerAbility[Speed])
-                menu.AddItem("ability", "Ability [Speed]");
-            else if(g_bJokerAbility[Bhop])
-                menu.AddItem("ability", "Ability [Bhop]");
+    menu.SetTitle("Joker menu\n¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
 
-            menu.AddItem("freerun", "Freerun", g_bFreerun ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+    if(g_bJokerAbility[Speed])
+        menu.AddItem("ability", "Ability [Speed]");
+    else if(g_bJokerAbility[Bhop])
+        menu.AddItem("ability", "Ability [Bhop]");
 
-            menu.Display(client, 90);
-        }
-        else
-            CPrintToChat(client, "%s %t", g_szTag, "YoureNotJoker");
-    }
+    menu.AddItem("freerun", "Freerun", g_bFreerun ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+
+    return menu;
 }
 
 public int mJoker(Menu menu, MenuAction action, int client, int index)
@@ -49,7 +42,7 @@ public int mJoker(Menu menu, MenuAction action, int client, int index)
                         CPrintToChat(client, "%s %t", g_szTag, "SpeedTurnedOn");
                     }
 
-                    Menu_Joker(client);
+                    menu.Display(client, 90);
                 }
                 else if(StrEqual(szItem, "freerun"))
                 {
