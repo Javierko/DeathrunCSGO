@@ -131,6 +131,8 @@ public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast
         {
             if(IsClientJoker(i))
             {
+                g_mJokerMenu = Menu_Joker();
+                
                 g_mJokerMenu.Display(i, 90);
             }
         }
