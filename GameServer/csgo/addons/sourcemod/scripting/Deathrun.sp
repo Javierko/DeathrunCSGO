@@ -111,8 +111,9 @@ public void OnMapStart()
 }
 
 public void OnMapEnd()
-{
-    delete g_mJokerMenu;
+{   
+    if(g_mJokerMenu != null)
+        delete g_mJokerMenu;
 }
 
 /*

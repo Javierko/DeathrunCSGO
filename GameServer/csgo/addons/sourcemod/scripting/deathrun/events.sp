@@ -123,16 +123,17 @@ public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast
         }
     }
 
-    delete g_mJokerMenu;
+    if(g_mJokerMenu != null)
+        delete g_mJokerMenu;
+
+    g_mJokerMenu = Menu_Joker();
 
     LoopClients(i)
     {
         if(IsValidClient(i))
         {
             if(IsClientJoker(i))
-            {
-                g_mJokerMenu = Menu_Joker();
-                
+            { 
                 g_mJokerMenu.Display(i, 90);
             }
         }
@@ -175,6 +176,9 @@ public void Event_RoundEnd(Handle event, const char[] name, bool dontbroadcast)
             }
         }
     }
+
+    if(g_mJokerMenu != null)
+        delete g_mJokerMenu;
 }
 
 //Player blind
