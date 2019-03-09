@@ -106,14 +106,6 @@ public void OnMapStart()
 
     if(g_cvModels.BoolValue)
         Func_DownloadAndPrecacheFiles();
-
-    g_mJokerMenu = Menu_Joker();
-}
-
-public void OnMapEnd()
-{   
-    if(g_mJokerMenu != null)
-        delete g_mJokerMenu;
 }
 
 /*
@@ -176,15 +168,14 @@ public Action Command_Freerun(int client, int args)
 public Action Command_Joker(int client, int args)
 {
     if(IsValidClient(client))
+    {
         if(IsClientJoker(client))
         {
-            if(g_mJokerMenu == null)
-                return Plugin_Handled;
-            
-            g_mJokerMenu.Display(client, 90);
+            Menu_Joker(client);
         }
         else
             CReplyToCommand(client, "%s %t", g_szTag, "YoureNotJoker");
+    }
 
     return Plugin_Handled;
 }

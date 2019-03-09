@@ -7,8 +7,6 @@ public Action Event_PlayerSpawn(Handle event, const char[] strName, bool dontBro
     {
         if(IsClientBatman(client))
         {
-            Menu_Batman(client);
-
             if(g_cvModels.BoolValue)
             {
                 SetEntityModel(client, "models/player/custom_player/kuristaja/ak/batman/batmanv2.mdl");
@@ -123,19 +121,14 @@ public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast
         }
     }
 
-    if(g_mJokerMenu != null)
-        delete g_mJokerMenu;
-
-    g_mJokerMenu = Menu_Joker();
-
     LoopClients(i)
     {
         if(IsValidClient(i))
         {
             if(IsClientJoker(i))
-            { 
-                g_mJokerMenu.Display(i, 90);
-            }
+                Menu_Joker(i);
+            else if(IsClientBatman(i))
+                Menu_Batman(i);
         }
     }
 }
@@ -176,9 +169,6 @@ public void Event_RoundEnd(Handle event, const char[] name, bool dontbroadcast)
             }
         }
     }
-
-    if(g_mJokerMenu != null)
-        delete g_mJokerMenu;
 }
 
 //Player blind
