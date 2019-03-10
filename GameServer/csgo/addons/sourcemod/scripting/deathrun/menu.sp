@@ -61,10 +61,6 @@ public int mJoker(Menu menu, MenuAction action, int client, int index)
                 CPrintToChat(client, "%s %t", g_szTag, "YoureNotJoker");
         }
     }
-    else if(action == MenuAction_End)
-    {
-        delete menu;
-    }
 }
 
 //Batman
