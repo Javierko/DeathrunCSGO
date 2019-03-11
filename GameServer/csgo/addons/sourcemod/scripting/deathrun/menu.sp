@@ -50,7 +50,7 @@ public int mJoker(Menu menu, MenuAction action, int client, int index)
                         CPrintToChat(client, "%s %t", g_szTag, "SpeedTurnedOn");
                     }
 
-                    menu.Display(client, 90);
+                    Menu_Joker(client);
                 }
                 else if(StrEqual(szItem, "freerun"))
                 {
