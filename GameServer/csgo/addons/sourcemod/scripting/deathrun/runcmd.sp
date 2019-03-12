@@ -90,21 +90,24 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
         }
         else if(IsClientJoker(client))
         {
-            int iIndex = GetEntProp(client, Prop_Data, "m_nWaterLevel");
-            int iWater = EntIndexToEntRef(iIndex);
-            
-            if(iWater != INVALID_ENT_REFERENCE)
+            if(g_bJokerAbility[Bhop] && !g_bJokerAbility[Speed])
             {
-                if(buttons & IN_JUMP)
+                int iIndex = GetEntProp(client, Prop_Data, "m_nWaterLevel");
+                int iWater = EntIndexToEntRef(iIndex);
+                
+                if(iWater != INVALID_ENT_REFERENCE)
                 {
-                    if(!(GetClientWaterLevel(client) > 1))
+                    if(buttons & IN_JUMP)
                     {
-                        if(!(GetEntityMoveType(client) & MOVETYPE_LADDER))
+                        if(!(GetClientWaterLevel(client) > 1))
                         {
-                            SetEntPropFloat(client, Prop_Send, "m_flStamina", 0.0);
-                            
-                            if(!(GetEntityFlags(client) & FL_ONGROUND))
-                                buttons &= ~IN_JUMP;
+                            if(!(GetEntityMoveType(client) & MOVETYPE_LADDER))
+                            {
+                                SetEntPropFloat(client, Prop_Send, "m_flStamina", 0.0);
+                                
+                                if(!(GetEntityFlags(client) & FL_ONGROUND))
+                                    buttons &= ~IN_JUMP;
+                            }
                         }
                     }
                 }
