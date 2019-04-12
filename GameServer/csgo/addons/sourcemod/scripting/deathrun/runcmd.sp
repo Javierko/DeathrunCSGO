@@ -8,18 +8,21 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
             {
                 if(g_bClientRespawn[client])
                 {
-                    float fTimeleft = ((g_fRespawnTime[client] - GetGameTime()) + 5.0);
-                    
-                    if(fTimeleft > 0.01)
+                    if(g_iClientLifes[client] > 0)
                     {
-                        PrintHintText(client, "%t", "DeathHud", fTimeleft);
-                    }
-                    else if(fTimeleft < 0.01)
-                    {
-                        CS_RespawnPlayer(client);
-                        g_iClientLifes[client]--;
-                        g_bClientRespawn[client] = false;
-                        PrintToChat(client, "%s %t", g_szTag, "YourLifes", g_iClientLifes[client]);
+                        float fTimeleft = ((g_fRespawnTime[client] - GetGameTime()) + 5.0);
+                        
+                        if(fTimeleft > 0.01)
+                        {
+                            PrintHintText(client, "%t", "DeathHud", fTimeleft);
+                        }
+                        else if(fTimeleft < 0.01)
+                        {
+                            CS_RespawnPlayer(client);
+                            g_iClientLifes[client]--;
+                            g_bClientRespawn[client] = false;
+                            PrintToChat(client, "%s %t", g_szTag, "YourLifes", g_iClientLifes[client]);
+                        }
                     }
                 }
             }

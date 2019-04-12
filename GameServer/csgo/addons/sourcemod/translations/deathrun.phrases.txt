@@ -76,7 +76,7 @@
 
     "YourLifes"
     {
-        "#format"   "{1:N}"
+        "#format"   "{1:i}"
         "en"        "Currently you have {1} lifes."
         "cze"       "Momentálně máš ještě {1} životů."
     }
