@@ -37,12 +37,6 @@ public Plugin myinfo =
 
 public void OnPluginStart()
 {
-    //Commands
-    RegConsoleCmd("sm_freerun", Command_Freerun);
-    RegConsoleCmd("sm_fr", Command_Freerun);
-    RegConsoleCmd("sm_joker", Command_Joker);
-    RegConsoleCmd("sm_batman", Command_Batman);
-
     //Events
     HookEvent("player_team", Event_PlayerTeam_Pre, EventHookMode_Pre);
     HookEvent("player_spawn", Event_PlayerSpawn);
@@ -60,8 +54,16 @@ public void OnPluginStart()
     g_cvRespawn = CreateConVar("sm_deathrun_respawn", "1", "1 - Enable respawns, 0 - disable respawns", _, true, 0.0, true, 1.0);
     g_cvLifesNonVIP = CreateConVar("sm_deathrun_lifes_novip", "1", "Non-VIP lifes >= 1", _, true, 1.0, false);
     g_cvLifesVIP = CreateConVar("sm_deathrun_lifes_vip", "3", "VIP lifes >= 1", _, true, 1.0, false);
+    g_cvMenu = CreateConVar("sm_deathrun_menu", "0", "0 - Default /joker, /batman, 1 - using /menu for both, 2 - works /batman; /joker and /menu", _, true, 0.0, true, 1.0);
 
     AutoExecConfig(true, "deathrun");
+
+    //Commands
+    RegConsoleCmd("sm_freerun", Command_Freerun);
+    RegConsoleCmd("sm_fr", Command_Freerun);
+
+    //RegConsoleCmd("sm_joker", Command_Joker);
+    //RegConsoleCmd("sm_batman", Command_Batman);
 
     //Translations
     LoadTranslations("deathrun.phrases");
@@ -131,8 +133,63 @@ public void OnClientDisconnect(int client)
 }
 
 /*
-    > Commands <
+    > Commands
 */
+
+public Action OnClientSayCommand(int client, const char[] command, const char[] args)
+{
+    if(IsValidClient(client))
+    {
+        if(g_cvMenu.IntValue == 0 || g_cvMenu.IntValue == 2)
+        {
+            if(StrEqual(command, "batman"))
+            {
+                if(IsClientBatman(client))
+                {
+                    Menu_Batman(client);
+                }
+                else
+                {
+                    CPrintToChat(client, "%s %t", g_szTag, "YoureNotBatman");
+                }
+
+                return Plugin_Handled;
+            }
+            else if(StrEqual(command, "joker"))
+            {
+                if(IsClientJoker(client))
+                {
+                    Menu_Joker(client);
+                }
+                else
+                {
+                    CPrintToChat(client, "%s %t", g_szTag, "YoureNotJoker");
+                }
+
+                return Plugin_Handled;
+            }
+        }
+
+        if(g_cvMenu.IntValue == 1)
+        {
+            if(StrEqual(command, "menu"))
+            {
+                if(IsClientJoker(client))
+                {
+                    Menu_Joker(client);
+                }
+                else if(IsClientBatman(client))
+                {
+                    Menu_Batman(client);
+                }
+
+                return Plugin_Handled;
+            }
+        }
+    }
+
+    return Plugin_Continue;
+}
 
 public Action Command_Freerun(int client, int args)
 {
@@ -165,7 +222,7 @@ public Action Command_Freerun(int client, int args)
     return Plugin_Handled;
 }
 
-public Action Command_Joker(int client, int args)
+/*public Action Command_Joker(int client, int args)
 {
     if(IsValidClient(client))
     {
@@ -189,7 +246,7 @@ public Action Command_Batman(int client, int args)
             CReplyToCommand(client, "%s %t", g_szTag, "YoureNotBatman");
 
     return Plugin_Handled;
-}
+}*/
 
 /*
     > Timers <

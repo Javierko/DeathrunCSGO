@@ -39,6 +39,7 @@ ConVar g_cvModels;
 ConVar g_cvRespawn;
 ConVar g_cvLifesNonVIP;
 ConVar g_cvLifesVIP;
+ConVar g_cvMenu;
 
 //Custom defines
 #define ENT_RADAR 1 << 12
