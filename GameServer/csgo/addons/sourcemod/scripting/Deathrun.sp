@@ -170,7 +170,7 @@ public Action OnClientSayCommand(int client, const char[] command, const char[] 
             }
         }
 
-        if(g_cvMenu.IntValue == 1)
+        if(g_cvMenu.IntValue == 1 || g_cvMenu.IntValue == 2)
         {
             if(StrEqual(command, "menu"))
             {
