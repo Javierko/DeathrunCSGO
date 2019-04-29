@@ -12,6 +12,7 @@
 * sm_deathrun_respawn "1" - 1 - Enable respawns, 0 - disable respawns
 * sm_deathrun_lifes_novip "1" - Non-VIP lifes >= 1
 * sm_deathrun_lifes_vip "3" - VIP lifes >= 1
+* sm_deathrun_menu "0" - 0 - Enable only /batman and /joker, 1 - Enable only /menu, 2 - Enable both
 
 ## Supported colors
 * {default}
