@@ -140,50 +140,43 @@ public Action OnClientSayCommand(int client, const char[] command, const char[] 
 {
     if(IsValidClient(client))
     {
+        char szBatmanCmds[][] =  {"/batman", "!batman", ".batman"};
+        char szJokerCmds[][] =  {"/joker", "!joker", ".joker"};
+        char szBoth[][] = {"/joker", "!joker", ".joker", "/batman", "!batman", ".batman"};
+        
         if(g_cvMenu.IntValue == 0 || g_cvMenu.IntValue == 2)
         {
-            if(StrEqual(command, "batman"))
+            for(int i = 0; i < sizeof(szBatmanCmds); i++)
             {
-                if(IsClientBatman(client))
+                if(strcmp(args[0], szBatmanCmds[i], false) == 0)
                 {
                     Menu_Batman(client);
-                }
-                else
-                {
-                    CPrintToChat(client, "%s %t", g_szTag, "YoureNotBatman");
-                }
 
-                return Plugin_Handled;
+                    break;
+                }
             }
-            else if(StrEqual(command, "joker"))
+
+            for(int i = 0; i < sizeof(szJokerCmds); i++)
             {
-                if(IsClientJoker(client))
+                if(strcmp(args[0], szJokerCmds[i], false) == 0)
                 {
                     Menu_Joker(client);
-                }
-                else
-                {
-                    CPrintToChat(client, "%s %t", g_szTag, "YoureNotJoker");
-                }
 
-                return Plugin_Handled;
+                    break;
+                }
             }
         }
 
         if(g_cvMenu.IntValue == 1 || g_cvMenu.IntValue == 2)
         {
-            if(StrEqual(command, "menu"))
+            for(int i = 0; i < sizeof(szBoth); i++)
             {
-                if(IsClientJoker(client))
+                if(strcmp(args[0], szBoth[i], false) == 0)
                 {
-                    Menu_Joker(client);
-                }
-                else if(IsClientBatman(client))
-                {
-                    Menu_Batman(client);
-                }
+                    Menu_Both(client);
 
-                return Plugin_Handled;
+                    break;
+                }
             }
         }
     }

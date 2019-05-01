@@ -165,3 +165,14 @@ public int mBatman(Menu menu, MenuAction action, int client, int index)
         }
     }
 }
+
+void Menu_Both(int client)
+{
+    if(IsValidClient(client))
+    {
+        if(IsClientJoker(client))
+            Menu_Joker(client);
+        else if(IsClientBatman(client))
+            Menu_Batman(client);
+    }
+}
