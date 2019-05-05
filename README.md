@@ -5,6 +5,7 @@
 * sm_fr - Starts freerun round
 * sm_joker - Open menu for Jokers
 * sm_batman - Open menu for Batmans
+* sm_menu - Depends if you have turned on sm_deathrun_menu convar, open batmans or jokers menu
 
 ## ConVars  
 * sm_deahtrun_tag "{darkred}[SM]{default}" - sets tag
