@@ -140,11 +140,12 @@ public Action OnClientSayCommand(int client, const char[] command, const char[] 
 {
     if(IsValidClient(client))
     {
-        char szBatmanCmds[][] =  {"/batman", "!batman", ".batman"};
-        char szJokerCmds[][] =  {"/joker", "!joker", ".joker"};
-        char szBoth[][] = {"/joker", "!joker", ".joker", "/batman", "!batman", ".batman"};
+        static char szBatmanCmds[][] =  {"/batman", "!batman", ".batman"};
+        static char szJokerCmds[][] =  {"/joker", "!joker", ".joker"};
+        static char szMenuCmds[][] =  {"/menu", "!menu", ".menu"};
+        static char szBoth[][] = {"/joker", "!joker", ".joker", "/batman", "!batman", ".batman", "/menu", "!menu", ".menu"};
         
-        if(g_cvMenu.IntValue == 0 || g_cvMenu.IntValue == 2)
+        if(g_cvMenu.IntValue == 0)
         {
             for(int i = 0; i < sizeof(szBatmanCmds); i++)
             {
@@ -166,8 +167,19 @@ public Action OnClientSayCommand(int client, const char[] command, const char[] 
                 }
             }
         }
+        else if(g_cvMenu.IntValue == 1)
+        {
+            for(int i = 0; i < sizeof(szMenuCmds); i++)
+            {
+                if(strcmp(args[0], szMenuCmds[i], false) == 0)
+                {
+                    Menu_Both(client);
 
-        if(g_cvMenu.IntValue == 1 || g_cvMenu.IntValue == 2)
+                    break;
+                }
+            }
+        }
+        else if(g_cvMenu.IntValue == 2)
         {
             for(int i = 0; i < sizeof(szBoth); i++)
             {
