@@ -57,6 +57,7 @@ public Action Event_PlayerDeath(Handle event, const char[] strName, bool dontBro
                     {
                         g_bBatmanAbility[client][Bhop] = false;
                         g_bBatmanAbility[client][Doublejump] = false;
+                        g_bBatmanAbility[client][Gravity] = false;
                     }
                 }
             }
@@ -66,6 +67,7 @@ public Action Event_PlayerDeath(Handle event, const char[] strName, bool dontBro
                 {
                     g_bBatmanAbility[client][Bhop] = false;
                     g_bBatmanAbility[client][Doublejump] = false;
+                    g_bBatmanAbility[client][Gravity] = false;
                 }
             }
         }
@@ -79,13 +81,19 @@ public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast
     g_bJokerAbility[Speed] = true;
     g_bFreerun = false;
     
-    if(!g_bFreerun)
+    if(g_cvFreerun.BoolValue)
     {
-        if(GetRandomInt(1,5) == GetRandomInt(1,5))
+        if(g_cvRandomFreerun.BoolValue)
         {
-            g_bFreerun = true;
+            if(!g_bFreerun)
+            {
+                if(GetRandomInt(1,5) == GetRandomInt(1,5))
+                {
+                    g_bFreerun = true;
 
-            CPrintToChatAll("%s %t", g_szTag, "FreerunTurnedOn");
+                    CPrintToChatAll("%s %t", g_szTag, "FreerunTurnedOn");
+                }
+            }
         }
     }
     
@@ -97,6 +105,7 @@ public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast
             {
                 g_bBatmanAbility[i][Bhop] = false;
                 g_bBatmanAbility[i][Doublejump] = false;
+                g_bBatmanAbility[i][Gravity] = false;
             }
 
             Func_StripPlayerWeapons(i);

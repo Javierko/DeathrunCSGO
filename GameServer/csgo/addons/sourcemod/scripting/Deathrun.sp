@@ -8,7 +8,7 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-#define PL_VER "2.0.5"
+#define PL_VER "2.0.6"
 #define PL_AUTOR "Javierko"
 #define LoopClients(%1) for(int %1 = 1; %1 <= MaxClients; %1++)
 
@@ -55,15 +55,14 @@ public void OnPluginStart()
     g_cvLifesNonVIP = CreateConVar("sm_deathrun_lifes_novip", "1", "Non-VIP lifes >= 1", _, true, 1.0, false);
     g_cvLifesVIP = CreateConVar("sm_deathrun_lifes_vip", "3", "VIP lifes >= 1", _, true, 1.0, false);
     g_cvMenu = CreateConVar("sm_deathrun_menu", "0", "0 - Default /joker, /batman, 1 - using /menu for both, 2 - works /batman; /joker and /menu", _, true, 0.0, true, 1.0);
+    g_cvFreerun = CreateConVar("sm_deathrun_freerun", "1", "1 - Enable freerun, 0 - disable freerun", _, true, 0.0, true, 1.0);
+    g_cvRandomFreerun = CreateConVar("sm_deathrun_random_freerun", "1", "1 - Enable random freeruns (sm_deathrun_freerun must be 1), 0 - disable random freeruns", _, true, 0.0, true, 1.0);
 
     AutoExecConfig(true, "deathrun");
 
     //Commands
     RegConsoleCmd("sm_freerun", Command_Freerun);
     RegConsoleCmd("sm_fr", Command_Freerun);
-
-    //RegConsoleCmd("sm_joker", Command_Joker);
-    //RegConsoleCmd("sm_batman", Command_Batman);
 
     //Translations
     LoadTranslations("deathrun.phrases");
@@ -100,6 +99,7 @@ public void OnMapStart()
         {
             g_bBatmanAbility[i][Bhop] = false;
             g_bBatmanAbility[i][Doublejump] = false;
+            g_bBatmanAbility[i][Gravity] = false;
         }
     }
 
@@ -204,18 +204,12 @@ public Action Command_Freerun(int client, int args)
         {
             if(!g_bFreerun)
             {
-                g_bFreerun = true;
-
-                /*int iIndex = -1;
-                char szButton[32];
-
-                while((iIndex = FindEntityByClassname(iIndex, "func_button")) != -1)
+                if(g_cvFreerun.BoolValue)
                 {
-                    GetEntPropString(iIndex, Prop_Data, "m_iName", szButton, sizeof(szButton));
-                    AcceptEntityInput(iIndex, "Kill");
-                }*/
+                    g_bFreerun = true;
 
-                CReplyToCommand(client, "%s %t", g_szTag, "FreerunTurnedOn");
+                    CReplyToCommand(client, "%s %t", g_szTag, "FreerunTurnedOn");
+                }
             }
             else
                 CReplyToCommand(client, "%s %t", g_szTag, "FreerunIsOn");
@@ -226,32 +220,6 @@ public Action Command_Freerun(int client, int args)
 
     return Plugin_Handled;
 }
-
-/*public Action Command_Joker(int client, int args)
-{
-    if(IsValidClient(client))
-    {
-        if(IsClientJoker(client))
-        {
-            Menu_Joker(client);
-        }
-        else
-            CReplyToCommand(client, "%s %t", g_szTag, "YoureNotJoker");
-    }
-
-    return Plugin_Handled;
-}
-
-public Action Command_Batman(int client, int args)
-{
-    if(IsValidClient(client))
-        if(IsClientBatman(client))
-            Menu_Batman(client);
-        else
-            CReplyToCommand(client, "%s %t", g_szTag, "YoureNotBatman");
-
-    return Plugin_Handled;
-}*/
 
 /*
     > Timers <
@@ -369,6 +337,13 @@ public void SDK_PreThink(int client)
                 SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 2.5);
             else
                 SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 1.0);
+        }
+        else if(IsClientBatman(client))
+        {
+            if(g_bBatmanAbility[client][Gravity])
+                SetEntityGravity(client, 0.6);
+            else
+                SetEntityGravity(client, 1.0);
         }
     }
 }

@@ -12,7 +12,8 @@ enum g_eJokerAbilitys
 enum g_eBatmanAbilitys
 {
     Doublejump,
-    Bhop
+    Bhop,
+    Gravity
 };
 
 //Booleans
@@ -40,6 +41,8 @@ ConVar g_cvRespawn;
 ConVar g_cvLifesNonVIP;
 ConVar g_cvLifesVIP;
 ConVar g_cvMenu;
+ConVar g_cvFreerun;
+ConVar g_cvRandomFreerun;
 
 //Custom defines
 #define ENT_RADAR 1 << 12

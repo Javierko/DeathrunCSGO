@@ -14,6 +14,8 @@
 * sm_deathrun_lifes_novip "1" - Non-VIP lifes >= 1
 * sm_deathrun_lifes_vip "3" - VIP lifes >= 1
 * sm_deathrun_menu "0" - 0 - Enable only /batman and /joker, 1 - Enable only /menu, 2 - Enable both
+* sm_deathrun_freerun "1" - 1 - Enable freerun, 0 - disable freerun
+* sm_deathrun_random_freerun "1" - 1 - Enable random freruns, 0 - disable random freeruns
 
 ## Supported colors
 * {default}

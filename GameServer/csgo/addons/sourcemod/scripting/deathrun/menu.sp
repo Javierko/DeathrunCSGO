@@ -13,7 +13,8 @@ void Menu_Joker(int client)
             else if(g_bJokerAbility[Bhop])
                 menu.AddItem("ability", "Ability [Bhop]");
 
-            menu.AddItem("freerun", "Freerun", g_bFreerun ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+            if(g_cvFreerun.BoolValue)
+                menu.AddItem("freerun", "Freerun", g_bFreerun ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
             
             menu.Display(client, 90);
         }
@@ -77,7 +78,9 @@ void Menu_Batman(int client)
                 menu.AddItem("ability", "Ability [Bhop]");
             else if(g_bBatmanAbility[client][Doublejump])
                 menu.AddItem("ability", "Ability [Doublejump]");
-            else if(!g_bBatmanAbility[client][Doublejump] && !g_bBatmanAbility[client][Bhop])
+            else if(g_bBatmanAbility[client][Gravity])
+                menu.AddItem("ability", "Ability [Gravity]");
+            else if(!g_bBatmanAbility[client][Doublejump] && !g_bBatmanAbility[client][Bhop] && !g_bBatmanAbility[client][Gravity])
                 menu.AddItem("ability", "Ability [-/-]");
 
             if(g_bHideMates[client])
@@ -110,40 +113,7 @@ public int mBatman(Menu menu, MenuAction action, int client, int index)
 
                 if(StrEqual(szItem, "ability"))
                 {
-                    if(g_bBatmanAbility[client][Bhop])
-                    {
-                        g_bBatmanAbility[client][Bhop] = false;
-                        g_bBatmanAbility[client][Doublejump] = true;
-
-                        CPrintToChat(client, "%s %t", g_szTag, "DoublejumpTurnedOn");
-                    }
-                    else if(g_bBatmanAbility[client][Doublejump])
-                    {
-                        g_bBatmanAbility[client][Bhop] = true;
-                        g_bBatmanAbility[client][Doublejump] = false;
-
-                        CPrintToChat(client, "%s %t", g_szTag, "BhopTurnedOn");
-                    }
-                    else if(!g_bBatmanAbility[client][Doublejump] && !g_bBatmanAbility[client][Bhop])
-                    {
-                        int iRand = GetRandomInt(0, 1);
-
-                        switch(iRand)
-                        {
-                            case 0:
-                            {
-                                g_bBatmanAbility[client][Doublejump] = true;
-
-                                CPrintToChat(client, "%s %t", g_szTag, "DoublejumpTurnedOn");
-                            }
-                            case 1:
-                            {
-                                g_bBatmanAbility[client][Bhop] = true;
-
-                                CPrintToChat(client, "%s %t", g_szTag, "BhopTurnedOn");
-                            }
-                        }
-                    }
+                    Menu_Ability(client);
                 }
                 else if(StrEqual(szItem, "hide"))
                 {
@@ -174,5 +144,82 @@ void Menu_Both(int client)
             Menu_Joker(client);
         else if(IsClientBatman(client))
             Menu_Batman(client);
+    }
+}
+
+void Menu_Ability(int client)
+{
+    if(IsValidClient(client))
+    {
+        if(IsClientBatman(client))
+        {
+            Menu menu = new Menu(mAbilityMenu);
+            menu.SetTitle("Ability menu");
+
+            menu.AddItem("bhop", "Bunny Hop", g_bBatmanAbility[client][Bhop] ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+            menu.AddItem("dj", "Double Jump", g_bBatmanAbility[client][Doublejump] ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+            menu.AddItem("gravity", "Gravity", g_bBatmanAbility[client][Gravity] ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+
+            menu.ExitBackButton = true;
+            menu.Display(client, 60);
+        }
+        else
+            CPrintToChat(client, "%s %t", g_szTag, "YoureNotBatman");
+    }
+}
+
+public int mAbilityMenu(Menu menu, MenuAction action, int client, int index)
+{
+    if(action == MenuAction_Select)
+    {
+        if(IsValidClient(client))
+        {
+            if(IsClientBatman(client))
+            {
+                char szItem[32];
+                menu.GetItem(index, szItem, sizeof(szItem));
+
+                if(StrEqual(szItem, "bhop"))
+                {
+                    if(!g_bBatmanAbility[client][Bhop])
+                    {
+                        g_bBatmanAbility[client][Bhop] = true;
+                        g_bBatmanAbility[client][Doublejump] = false;
+                        g_bBatmanAbility[client][Gravity] = false;
+
+                        CPrintToChat(client, "%s %t", g_szTag, "BhopTurnedOn");
+                    }
+                }
+                else if(StrEqual(szItem, "dj"))
+                {
+                    if(!g_bBatmanAbility[client][Bhop])
+                    {
+                        g_bBatmanAbility[client][Bhop] = false;
+                        g_bBatmanAbility[client][Doublejump] = true;
+                        g_bBatmanAbility[client][Gravity] = false;
+
+                        CPrintToChat(client, "%s %t", g_szTag, "DoublejumpTurnedOn");
+                    }
+                }
+                else if(StrEqual(szItem, "gravity"))
+                {
+                    if(!g_bBatmanAbility[client][Bhop])
+                    {
+                        g_bBatmanAbility[client][Bhop] = false;
+                        g_bBatmanAbility[client][Doublejump] = false;
+                        g_bBatmanAbility[client][Gravity] = true;
+
+                        CPrintToChat(client, "%s %t", g_szTag, "GravityTurnedOn");
+                    }
+                }
+            }
+        }
+    }
+    else if(action == MenuAction_Cancel)
+    {
+        if(index == MenuCancel_ExitBack)
+        {
+            Menu_Batman(client);
+        }
     }
 }

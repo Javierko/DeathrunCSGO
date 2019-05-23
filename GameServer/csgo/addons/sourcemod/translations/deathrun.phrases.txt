@@ -27,7 +27,13 @@
     "BhopTurnedOn"
     {
         "en"        "You turned on Bhop!"
-        "cze"       "Zapnul sis Bhop"
+        "cze"       "Zapnul sis Bhop!"
+    }
+
+    "GravityTurnedOn"
+    {
+        "en"        "You turned on Gravity!"
+        "cze"       "Zapnul sis gravitaci!"
     }
 
     "SpeedTurnedOn"
