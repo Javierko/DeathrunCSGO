@@ -120,15 +120,17 @@ public int mBatman(Menu menu, MenuAction action, int client, int index)
                     g_bHideMates[client] = !g_bHideMates[client];
 
                     CPrintToChat(client, "%s %t", g_szTag, "HidePlayersToggle");
+
+                    Menu_Batman(client);
                 }
                 else if(StrEqual(szItem, "save"))
                 {
                     g_bSaveAbility[client] = !g_bSaveAbility[client];
 
                     CPrintToChat(client, "%s %t", g_szTag, "SaveAbilityToggle");
-                }
 
-                Menu_Batman(client);
+                    Menu_Batman(client);
+                }
             }
             else
                 CPrintToChat(client, "%s %t", g_szTag, "YoureNotBatman");
@@ -192,7 +194,7 @@ public int mAbilityMenu(Menu menu, MenuAction action, int client, int index)
                 }
                 else if(StrEqual(szItem, "dj"))
                 {
-                    if(!g_bBatmanAbility[client][Bhop])
+                    if(!g_bBatmanAbility[client][Doublejump])
                     {
                         g_bBatmanAbility[client][Bhop] = false;
                         g_bBatmanAbility[client][Doublejump] = true;
@@ -203,7 +205,7 @@ public int mAbilityMenu(Menu menu, MenuAction action, int client, int index)
                 }
                 else if(StrEqual(szItem, "gravity"))
                 {
-                    if(!g_bBatmanAbility[client][Bhop])
+                    if(!g_bBatmanAbility[client][Gravity])
                     {
                         g_bBatmanAbility[client][Bhop] = false;
                         g_bBatmanAbility[client][Doublejump] = false;
@@ -212,6 +214,8 @@ public int mAbilityMenu(Menu menu, MenuAction action, int client, int index)
                         CPrintToChat(client, "%s %t", g_szTag, "GravityTurnedOn");
                     }
                 }
+
+                Menu_Batman(client);
             }
         }
     }
