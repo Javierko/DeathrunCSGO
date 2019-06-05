@@ -145,16 +145,21 @@ public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast
 //Pre round start
 public void Event_RoundStart_Pre(Handle event, const char[] name, bool dontbroadcast)
 {
-	if(Func_CountTeamPlayers(CS_TEAM_T) == 0)
-	{
-		g_iJoker = Func_GetRandomPlayer();
-
-		if(IsValidClient(g_iJoker))
-		{
-			CS_SwitchTeam(g_iJoker, CS_TEAM_T);
-			CPrintToChatAll("%s %t", g_szTag, "NewJoker", g_iJoker);
-		}
-	}
+    g_bDisabledJoker = false;
+    
+    if(Func_CountTeamPlayers(CS_TEAM_CT) <= 1)
+        g_bDisabledJoker = true;
+        
+    if(Func_CountTeamPlayers(CS_TEAM_T) == 0 && !g_bDisabledJoker)
+    {
+        g_iJoker = Func_GetRandomPlayer();
+        
+        if(IsValidClient(g_iJoker))
+        {
+            CS_SwitchTeam(g_iJoker, CS_TEAM_T);
+            CPrintToChatAll("%s %t", g_szTag, "NewJoker", g_iJoker);
+        }
+    }
 }
 
 //Round end

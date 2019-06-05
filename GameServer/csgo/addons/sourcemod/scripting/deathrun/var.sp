@@ -23,6 +23,7 @@ bool g_bBatmanAbility[MAXPLAYERS + 1][g_eBatmanAbilitys];
 bool g_bHideMates[MAXPLAYERS + 1] = false;
 bool g_bClientRespawn[MAXPLAYERS + 1] = false;
 bool g_bSaveAbility[MAXPLAYERS + 1] = false;
+bool g_bDisabledJoker = false;
 
 //Integers
 int g_iJoker = -1;
