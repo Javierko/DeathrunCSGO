@@ -32,9 +32,9 @@
 * {orange}
 
 ## Recommended settings
-* sv_accelerate 5.5 
-* sv_airaccelerate 100
-* sv_maxvelocity 4000  
+* sv_accelerate 10 
+* sv_airaccelerate 1000
+* sv_maxvelocity 9999
 * sv_accelerate_use_weapon_speed 0
 * sv_staminalandcost 0 
 * sv_staminajumpcost 0 
