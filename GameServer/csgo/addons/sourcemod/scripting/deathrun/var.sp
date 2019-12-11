@@ -2,28 +2,22 @@
 char g_szTag[64];
 char g_szDownloadPath[PLATFORM_MAX_PATH];
 
-//Enums
-enum g_eJokerAbilitys
-{
-    Speed,
-    Bhop
-};
-
-enum g_eBatmanAbilitys
-{
-    Doublejump,
-    Bhop,
-    Gravity
-};
+//Enum
+enum struct g_eAbility {
+    bool DoubleJump;
+    bool Bhop;
+    bool Gravity;
+    bool Speed;
+}
 
 //Booleans
 bool g_bFreerun = false;
-bool g_bJokerAbility[g_eJokerAbilitys] = false;
-bool g_bBatmanAbility[MAXPLAYERS + 1][g_eBatmanAbilitys];
 bool g_bHideMates[MAXPLAYERS + 1] = false;
 bool g_bClientRespawn[MAXPLAYERS + 1] = false;
 bool g_bSaveAbility[MAXPLAYERS + 1] = false;
 bool g_bDisabledJoker = false;
+g_eAbility g_bJokerAbility;
+g_eAbility g_bBatmanAbility[MAXPLAYERS + 1];
 
 //Integers
 int g_iJoker = -1;

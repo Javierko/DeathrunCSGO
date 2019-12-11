@@ -8,7 +8,7 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-#define PL_VER "2.0.6"
+#define PL_VER "2.1.0"
 #define PL_AUTOR "Javierko"
 #define LoopClients(%1) for(int %1 = 1; %1 <= MaxClients; %1++)
 
@@ -90,16 +90,16 @@ public void OnMapStart()
 {
     g_iJoker = -1;
     g_bFreerun = false;
-    g_bJokerAbility[Speed] = false;
-    g_bJokerAbility[Bhop] = false;
+    g_bJokerAbility.Speed = false;
+    g_bJokerAbility.Bhop = false;
     
     LoopClients(i)
     {
         if(IsValidClient(i))
         {
-            g_bBatmanAbility[i][Bhop] = false;
-            g_bBatmanAbility[i][Doublejump] = false;
-            g_bBatmanAbility[i][Gravity] = false;
+            g_bBatmanAbility[i].Bhop = false;
+            g_bBatmanAbility[i].DoubleJump = false;
+            g_bBatmanAbility[i].Gravity = false;
         }
     }
 
@@ -107,7 +107,9 @@ public void OnMapStart()
     Func_SetCvar("mp_teamname_2", "Joker");
 
     if(g_cvModels.BoolValue)
+    {
         Func_DownloadAndPrecacheFiles();
+    }
 }
 
 /*
@@ -128,8 +130,12 @@ public void OnClientPutInServer(int client)
 public void OnClientDisconnect(int client)
 {
     if(IsValidClient(client))
+    {
         if(IsClientJoker(client))
+        {
             CS_TerminateRound(1.5, CSRoundEnd_CTWin);
+        }
+    }
 }
 
 /*
@@ -212,10 +218,14 @@ public Action Command_Freerun(int client, int args)
                 }
             }
             else
+            {
                 CReplyToCommand(client, "%s %t", g_szTag, "FreerunIsOn");
+            }
         }
         else
+        {
             CReplyToCommand(client, "%s %t", g_szTag, "YoureNotJoker");
+        }
     }
 
     return Plugin_Handled;
@@ -228,7 +238,9 @@ public Action Command_Freerun(int client, int args)
 public Action Timer_RemoveRadar(Handle timer, any client)
 {
     if(IsValidClient(client))
+    {
         SetEntProp(client, Prop_Send, "m_iHideHUD", ENT_RADAR);
+    }
 
     return Plugin_Stop;
 }
@@ -248,12 +260,18 @@ public Action Event_OnPlayerTeamJoin(int client, const char[] command, int args)
     if(IsValidClient(client))
     {
         if(iCurrTeam == iTargetTeam)
+        {
             return Plugin_Handled;
+        }
 
         if(iTargetTeam == CS_TEAM_T)
+        {
             return Plugin_Handled;
+        }
         else if(iTargetTeam != CS_TEAM_T)
+        {
             return Plugin_Continue;
+        }
     }
 
     return Plugin_Handled;
@@ -333,17 +351,25 @@ public void SDK_PreThink(int client)
     {
         if(IsClientJoker(client))
         {
-            if(g_bJokerAbility[Speed])
+            if(g_bJokerAbility.Speed)
+            {
                 SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 2.5);
+            }
             else
+            {
                 SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 1.0);
+            }
         }
         else if(IsClientBatman(client))
         {
-            if(g_bBatmanAbility[client][Gravity])
+            if(g_bBatmanAbility[client].Gravity)
+            {
                 SetEntityGravity(client, 0.6);
+            }
             else
+            {
                 SetEntityGravity(client, 1.0);
+            }
         }
     }
 }
@@ -352,25 +378,37 @@ public void SDK_PreThink(int client)
 public Action SDK_SetTransmit(int entity, int client)
 {
     if(client != entity)
+    {
         if(GetClientTeam(client) == CS_TEAM_CT && GetClientTeam(entity) == CS_TEAM_CT)
+        {
             if(IsValidClient(entity))
+            {
                 if(g_bHideMates[client])
+                {
                     return Plugin_Handled;
+                }
+            }
+        }
+    }
                     
     return Plugin_Continue;
 }
 
 //Sound hook
 public Action Sound_OnNormalSoundPlayed(int clients[64], int &numClients, char sample[PLATFORM_MAX_PATH], int &entity, int &channel, float &volume, int &level, int &pitch, int &flags)
-{
-    if (entity && entity <= MaxClients && StrContains(sample, "footsteps") != -1)
-    {
+{  
+    if(entity && entity <= MaxClients && StrContains(sample, "footsteps") != -1)
+    { 
         if(GetClientTeam(entity) == CS_TEAM_T)
+        {
             return Plugin_Handled;
+        }
         else
         {
             if(StrContains(sample, "footsteps/new/") != -1)
+            {
                 return Plugin_Stop;
+            }
                 
             EmitSoundToAll(sample, entity, SNDCHAN_AUTO,SNDLEVEL_NORMAL,SND_NOFLAGS,0.5);
             

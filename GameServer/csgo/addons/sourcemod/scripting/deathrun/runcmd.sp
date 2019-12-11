@@ -33,7 +33,7 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
     {
         if(IsClientBatman(client))
         {
-            if(g_bBatmanAbility[client][Bhop])
+            if(g_bBatmanAbility[client].Bhop)
             {
                 int iIndex = GetEntProp(client, Prop_Data, "m_nWaterLevel");
                 int iWater = EntIndexToEntRef(iIndex);
@@ -49,13 +49,15 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
                                 SetEntPropFloat(client, Prop_Send, "m_flStamina", 0.0);
                                 
                                 if(!(GetEntityFlags(client) & FL_ONGROUND))
+                                {
                                     buttons &= ~IN_JUMP;
+                                }
                             }
                         }
                     }
                 }
             }
-            else if(g_bBatmanAbility[client][Doublejump])
+            else if(g_bBatmanAbility[client].DoubleJump)
             {
                 int iCurFlags = GetEntityFlags(client);
                 int iCurButtons = GetClientButtons(client);
@@ -93,7 +95,7 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
         }
         else if(IsClientJoker(client))
         {
-            if(g_bJokerAbility[Bhop] && !g_bJokerAbility[Speed])
+            if(g_bJokerAbility.Bhop && !g_bJokerAbility.Speed)
             {
                 int iIndex = GetEntProp(client, Prop_Data, "m_nWaterLevel");
                 int iWater = EntIndexToEntRef(iIndex);
@@ -109,7 +111,9 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
                                 SetEntPropFloat(client, Prop_Send, "m_flStamina", 0.0);
                                 
                                 if(!(GetEntityFlags(client) & FL_ONGROUND))
+                                {
                                     buttons &= ~IN_JUMP;
+                                }
                             }
                         }
                     }

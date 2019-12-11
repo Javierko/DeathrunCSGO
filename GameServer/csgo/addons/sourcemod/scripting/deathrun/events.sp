@@ -23,8 +23,8 @@ public Action Event_PlayerSpawn(Handle event, const char[] strName, bool dontBro
                 SetEntPropString(client, Prop_Send, "m_szArmsModel", "models/player/custom_player/kuristaja/billy/billy_arms.mdl");
             }
 
-            g_bJokerAbility[Bhop] = false;
-            g_bJokerAbility[Speed] = true;
+            g_bJokerAbility.Bhop = false;
+            g_bJokerAbility.Speed = true;
         }
 
         Func_StripPlayerWeapons(client);
@@ -55,9 +55,9 @@ public Action Event_PlayerDeath(Handle event, const char[] strName, bool dontBro
                 {
                     if(!g_bSaveAbility[client])
                     {
-                        g_bBatmanAbility[client][Bhop] = false;
-                        g_bBatmanAbility[client][Doublejump] = false;
-                        g_bBatmanAbility[client][Gravity] = false;
+                        g_bBatmanAbility[client].Bhop = false;
+                        g_bBatmanAbility[client].DoubleJump = false;
+                        g_bBatmanAbility[client].Gravity = false;
                     }
                 }
             }
@@ -65,9 +65,9 @@ public Action Event_PlayerDeath(Handle event, const char[] strName, bool dontBro
             {
                 if(!g_bSaveAbility[client])
                 {
-                    g_bBatmanAbility[client][Bhop] = false;
-                    g_bBatmanAbility[client][Doublejump] = false;
-                    g_bBatmanAbility[client][Gravity] = false;
+                    g_bBatmanAbility[client].Bhop = false;
+                    g_bBatmanAbility[client].DoubleJump = false;
+                    g_bBatmanAbility[client].Gravity = false;
                 }
             }
         }
@@ -77,8 +77,8 @@ public Action Event_PlayerDeath(Handle event, const char[] strName, bool dontBro
 //Round Start
 public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast)
 {
-    g_bJokerAbility[Bhop] = false;
-    g_bJokerAbility[Speed] = true;
+    g_bJokerAbility.Bhop = false;
+    g_bJokerAbility.Speed = true;
     g_bFreerun = false;
     
     if(g_cvFreerun.BoolValue)
@@ -103,9 +103,9 @@ public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast
         {
             if(!g_bSaveAbility[i])
             {
-                g_bBatmanAbility[i][Bhop] = false;
-                g_bBatmanAbility[i][Doublejump] = false;
-                g_bBatmanAbility[i][Gravity] = false;
+                g_bBatmanAbility[i].Bhop = false;
+                g_bBatmanAbility[i].DoubleJump = false;
+                g_bBatmanAbility[i].Gravity = false;
             }
 
             Func_StripPlayerWeapons(i);
@@ -135,9 +135,13 @@ public void Event_RoundStart(Handle event, const char[] name, bool dontbroadcast
         if(IsValidClient(i))
         {
             if(IsClientJoker(i))
+            {
                 Menu_Joker(i);
+            }
             else if(IsClientBatman(i))
+            {
                 Menu_Batman(i);
+            }
         }
     }
 }
@@ -148,7 +152,9 @@ public void Event_RoundStart_Pre(Handle event, const char[] name, bool dontbroad
     g_bDisabledJoker = false;
     
     if(Func_CountTeamPlayers(CS_TEAM_CT) <= 1)
+    {
         g_bDisabledJoker = true;
+    }
         
     if(Func_CountTeamPlayers(CS_TEAM_T) == 0 && !g_bDisabledJoker)
     {
@@ -167,10 +173,14 @@ public void Event_RoundEnd(Handle event, const char[] name, bool dontbroadcast)
 {
     int iWinner = GetEventInt(event, "winner");
     
-    if (iWinner == CS_TEAM_CT)
+    if(iWinner == CS_TEAM_CT)
+    {
         CPrintToChatAll("%s %t", g_szTag, "BatmansWin");
+    }
     else if (iWinner == CS_TEAM_T)
+    {
         CPrintToChatAll("%s %t", g_szTag, "JokersWin");
+    }
 
     if(Func_CountTeamPlayers(CS_TEAM_T) > 0)
     {
